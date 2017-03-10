@@ -1,0 +1,91 @@
+1. Integer: Bilangan bulat dari –32768 sampai dengan 32767. Integer heksadesimal diawali dengan tanda ($).
+
+2. Real: Bilangan real dari 1 x 10-307 sampai 1 x 10308. Jika integer diberikan pada argumen real maka akan langsung diubah ke real.
+
+3. String: Rentetan karakter tang diapit tanda kutip ganda seperti “Jalan Sangkuriang”. Panjang maksimum 255 karakter, sedangkan jika string tersebut dari file, atau terkandung dalam program, bisa mencapai 64 Kbyte.
+
+4. Symbol: Rangkaian huruf, angka dan garis bawah, asalkan karakter pertama huruf kecil, tidak mengandung spasi/karakter khusus.
+
+5. Aritas jamak (multiple arity) 
+Aritas (arity) suatu predikat adalah jumlah argumen yang ada pada predikat tersebut.
+Contoh: 
+DOMAINS 
+orang = symbol 
+PREDICATES 
+ayah(orang) % orang ini adalah seorang ayah 
+ayah(orang, orang) % orang 1 adalah ayah bagi yg ke-2 
+CLAUSES 
+ayah(Seseorang):- 
+ayah(Seseorang, _). 
+ayah(erwin, diena). 
+ayah(erwin, latifah).
+
+6. Unifikasi (Unification) 
+Pada waktu Visual Prolog mencoba untuk mencocokkan suatu panggilan (dari sebuah subgoal) ke klausa (pada section clauses), maka proses tersebut melibatkan suatu prosedur yang dikenal dengan unifikasi (unification), yang mana berusaha untuk mencocokkan antara struktur data yang ada di panggilan (subgoal) dengan klausa yang diberikan.
+Contoh:
+DOMAINS 
+judul,pengarang = symbol 
+halaman = unsigned 
+PREDICATES 
+buku(judul, halaman) 
+nondeterm ditulis_oleh(pengarang, judul) 
+nondeterm buku_tebal(judul) 
+CLAUSES 
+ditulis_oleh(emha, "Markesot Bertutur"). 
+ditulis_oleh(kahlil, "Sang Nabi"). 
+buku("Sang Nabi", 132). 
+buku("Markesot Bertutur", 379).
+buku_tebal(Judul):- 
+ditulis_oleh(_, Judul), 
+buku(Judul, Tebal), 
+Tebal > 300.
+
+7. Lacakbalik (Backtracking) 
+Visual Prolog menggunakan metode ini untuk menemukan suatu solusi dari permasalahan yang diberikan.Visual Prolog dalam memulai mencari solusi suatu permasalahan (atau goal) harus membuat keputusan di antara kemungkinan-kemungkinan yang ada. Ia menandai di setiap percabangan (dikenal dengan titik lacak balik) dan memilih subgoal pertama untuk telusuri. Jika subgoal tersebut gagal (ekivalen dengan menemukan jalan buntu), Visual Prolog akan lacakbalik ke titik lacakbalik (back-tracking point) terakhir dan mencoba alternatif subgoal yang lain.
+Contoh: 
+PREDICATES 
+nondeterm jenis(symbol, symbol) 
+nondeterm adalah(symbol, symbol) 
+hidup(symbol, symbol) 
+nondeterm dapat_berenang(symbol) 
+CLAUSES
+jenis(vertebrata,hewan). 
+jenis(ikan,hewan). 
+adalah(zebra,vertebrata). 
+adalah(lele,ikan). 
+adalah(tuna,ikan). 
+hidup(zebra,di_darat). 
+hidup(kodok,di_darat). 
+hidup(kodok,di_air). 
+hidup(tuna,di_air). 
+dapat_berenang(Y):- 
+jenis(X,hewan), 
+adalah(Y,X), 
+hidup(Y,di_air). 
+GOAL 
+dapat_berenang(Apa).
+
+8. Rekursi
+Prosedur rekursi adalah prosedur yang di dalamnya ada pemanggilan terhadap dirinya sendiri.
+Conto: 
+PREDICATES 
+faktorial(unsigned,real) 
+CLAUSES 
+faktorial(1,1):-!. 
+faktorial(X,FaktoX):- 
+Y=X-1, 
+faktorial(Y,FaktoY), 
+FaktoX = X*FaktoY. 
+GOAL 
+X=3, 
+faktorial(X,Y).
+
+9. Nondeterm
+Nondeterm pada section predicates berfungsi untuk memberi tahu compiler bahwa predikat tersebut mempunyai lebih dari satu kemungkinan jawaban (non-deterministik).
+Contoh: nondeterm lakukan(pohonchar)
+
+10. LIST
+Yang dimaksud dengan list adalah sebuah object yang didalamnya mengandung sejumlah object yang lain (jumlahnya dapat berubah-ubah). 
+Contoh:
+head dari list [a, b, c] adalah a 
+tail dari list [a, b, c] adalah [b, c]
