@@ -1,0 +1,62 @@
+PREDICATES   
+beli_mobil(symbol,symbol)   
+nondeterm mobil(symbol,symbol,integer)   
+warna(symbol,symbol) 
+ 
+CLAUSES   
+beli_mobil(Model,Warna):-  
+mobil(Model,Warna,Harga),  
+warna(Warna,seksi),!,  
+Harga < 25000. 
+ 
+mobil(ferrari,hijau,25000).   
+mobil(jaguar,hitam,24000).   
+mobil(jaguar,merah,26000).   
+mobil(porsche,merah,24000). 
+ 
+warna(merah,seksi).   
+warna(hitam,wibawa).   
+warna(hijau,sejuk). 
+ 
+GOAL   
+beli_mobil(jaguar, Y).
+
+Analisis :
+
+Pada program ini yaitu mencari goal terakhir mencari warna dari mobil jaguar dimana terdapat rules yang harus dipenuhi. 
+
+Penyelesaian dengan Backtracking.
+Lacak1 mobil(ferrari,hijau,25000) :
+	Rule1 mobil(Model,Warna,Harga),  
+	Ternyata pada rule 1 terpenuhi kemudian dilanjutkan ke rule 2.
+
+	Rule2 warna(Warna,seksi),!,  
+	Ternyata pada rule2 ini tidak terpenuhi karena hijau bukan warna sexy. Maka 	dilakukan kembali lacak balik ke rule awal menuju rule selanjutnya.
+
+
+Lacak2 mobil(jaguar,hitam,24000).
+	Rule1 mobil(Model,Warna,Harga),  
+	Ternyata pada rule 1 terpenuhi kemudian dilanjutkan ke rule 2.
+
+	Rule2 warna(Warna,seksi),!,  
+	Ternyata pada rule2 ini tidak terpenuhi karena hitam bukan warna sexy tetapi sejuk 	maka dilanjutkan kembali lacak balik ke rule selanjutnya.
+
+Lacak3 mobil(jaguar,merah,26000).
+
+	Rule1 mobil(Model,Warna,Harga),  
+	Ternyata pada rule 1 terpenuhi kemudian dilanjutkan ke rule 2
+	Rule2 warna(Warna,seksi),!,  
+	Ternyata pada rule2 ini akhirnya terpenuhi karena merah adalah warna sexy.
+
+Karena sudah ketemu dengan hasil goal pelacakan maka pelacakan dihentikan dan untuk rule harga tidak dieksekusi karena terdapat fungsi not dalam rule warna maka dari itu pelacakan hanya sebatas sampai di warna.
+
+terimakasih.
+
+
+
+
+
+
+
+
+
